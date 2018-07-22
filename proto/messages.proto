@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package events;
+
+message EventMessage {
+	int64 datetime = 1;
+	int32 priority = 2;
+	string test = 3;
+}
+
+message ConfirmEvent {
+	int64 eventId = 1;
+}
+
+message RefreshRequest {
+	repeated int64 id = 1;
+	repeated int64 new = 2;
+}
