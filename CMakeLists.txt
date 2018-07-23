@@ -12,6 +12,8 @@ set(SOURCE_FILES main.cpp)
 
 add_subdirectory(main)
 add_subdirectory(proto)
+add_subdirectory(connections)
+#add_subdirectory(database)
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
@@ -22,6 +24,6 @@ if(Boost_FOUND)
     target_link_libraries(eventServer libMain)
     target_link_libraries(eventServer libProto)
     target_link_libraries(eventServer libConnections)
-    target_link_libraries(eventServer libDB)
+#    target_link_libraries(eventServer libDB)
 
 endif()
