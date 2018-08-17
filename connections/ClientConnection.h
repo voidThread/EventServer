@@ -20,6 +20,7 @@ class ClientConnection : public std::enable_shared_from_this<ClientConnection> {
 
   ClientConnection(boost::asio::io_service &ioService);
 
+  boost::asio::ip::tcp::socket &getSocket();
   void run();
 };
 
