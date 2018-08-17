@@ -6,6 +6,7 @@
 
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/strand.hpp>
+#include <boost/asio/streambuf.hpp>
 
 /** \brief Connection handling
  *
@@ -14,6 +15,8 @@ class ClientConnection : public std::enable_shared_from_this<ClientConnection> {
  private:
   boost::asio::ip::tcp::socket mSocket;
   boost::asio::io_service::strand mStrand;
+
+  void readDataFromClient();
 
  public:
   typedef std::shared_ptr<ClientConnection> connectionPointer;

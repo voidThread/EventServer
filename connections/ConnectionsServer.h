@@ -22,6 +22,6 @@ class ConnectionsServer {
   unsigned mThreadPoolSize {1};
 
  public:
-  explicit ConnectionsServer(const ServerConfiguration &config);
+  explicit ConnectionsServer(ServerConfiguration &config);
 };
 

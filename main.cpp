@@ -13,7 +13,8 @@ int main(int argc, char **argv) {
     syslog(LOG_INFO, "Load config file");
     daemon.loadConfig("path/to/config");
     syslog(LOG_INFO, "Start daemonize");
-    daemon.daemonize();
+//TODO: add switch to demonize
+    //daemon.daemonize();
     syslog(LOG_INFO, "Run all subsystems");
     daemon.run();
   }catch (std::exception &e) {

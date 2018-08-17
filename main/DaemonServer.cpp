@@ -3,6 +3,8 @@
 //
 
 #include "DaemonServer.h"
+#include "../connections/ServerConfiguration.h"
+#include "../connections/ConnectionsServer.h"
 #include <unistd.h>
 #include <signal.h>
 #include <cstring>
@@ -64,5 +66,9 @@ void DaemonServer::daemonize() {
 }
 void DaemonServer::run() {
   //run subsystems
-  sleep(30);
+
+  //TODO change hardcode values to from config file
+  ServerConfiguration serverConfig(2, 9988);
+  ConnectionsServer connectionsServer(serverConfig);
+//  sleep(30);
 }

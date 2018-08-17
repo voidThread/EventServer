@@ -4,14 +4,13 @@
 
 #include "ServerConfiguration.h"
 
-ServerConfiguration::ServerConfiguration(boost::asio::io_service &ioService,
-                                         unsigned threadNumber, unsigned socket)
-  : mIoService(ioService),
-    mThreadPoolSize(threadNumber),
-    mSocketNumber(socket)
+ServerConfiguration::ServerConfiguration(unsigned threadNumber, unsigned socket)
+  : mThreadPoolSize(threadNumber),
+    mSocketNumber(socket),
+    mIoService()
 {
 }
-boost::asio::io_service &ServerConfiguration::getIoService() const {
+boost::asio::io_service &ServerConfiguration::getIoService() {
   return mIoService;
 };
 unsigned ServerConfiguration::getSocketNumber() const {

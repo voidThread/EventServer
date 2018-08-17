@@ -13,13 +13,13 @@ class ServerConfiguration {
  private:
   unsigned mSocketNumber {65535};
   unsigned mThreadPoolSize {1};
-  boost::asio::io_service &mIoService;
+  boost::asio::io_service mIoService;
 
  public:
-  ServerConfiguration(boost::asio::io_service &ioService, unsigned threadNumber,
+  ServerConfiguration(unsigned threadNumber,
                       unsigned socket);
 
-  boost::asio::io_service &getIoService() const;
+  boost::asio::io_service &getIoService();
   unsigned getSocketNumber() const;
   unsigned getThreadPoolSize() const;
 };

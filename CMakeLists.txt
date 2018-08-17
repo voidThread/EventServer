@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(eventServer)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -lboost_system -lboost_thread -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")
 
-find_package(Boost 1.65.1 COMPONENTS system thread program_options REQUIRED)
+find_package(Boost 1.65.1 REQUIRED COMPONENTS system thread program_options)
 
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
@@ -23,7 +23,7 @@ if(Boost_FOUND)
     target_link_libraries(eventServer ${Boost_LIBRARIES})
     target_link_libraries(eventServer libMain)
     target_link_libraries(eventServer libProto)
-    target_link_libraries(eventServer libConnections)
+    target_link_libraries(eventServer libConnections boost_system)
 #    target_link_libraries(eventServer libDB)
 
 endif()
