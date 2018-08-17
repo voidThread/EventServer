@@ -16,7 +16,7 @@ class ConnectionsServer {
 
   boost::asio::ip::tcp::acceptor mAcceptor;
   boost::asio::io_service mServiceIO;
-  unsigned threadPoolSize {4};
+  unsigned mThreadPoolSize {1};
 
  public:
   explicit ConnectionsServer(const ServerConfiguration &config);

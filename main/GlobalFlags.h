@@ -16,14 +16,11 @@ class GlobalFlags final{
   void operator=(GlobalFlags const&) =delete;
 
   std::atomic<bool> mDaemonizeServer {true};
-  std::atomic<uint16_t> mSocketNumber {9999};
 
  public:
   static GlobalFlags& getInstance();
 
-  const std::atomic<bool> &getMDaemonizeServer() const;
-  void setMDaemonizeServer(const std::atomic<bool> &mDaemonizeServer);
-  const std::atomic<unsigned short> &getMSocketNumber() const;
-  void setMSocketNumber(const std::atomic<unsigned short> &mSocketNumber);
+  const std::atomic<bool> &getDaemonizeServer() const;
+  void setDaemonizeServer(const std::atomic<bool> &mDaemonizeServer);
 };
 

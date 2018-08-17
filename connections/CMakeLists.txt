@@ -3,7 +3,7 @@ project(eventServer)
 
 add_definitions(-std=c++17)
 
-set(HEADERS ConnectionsServer.h ClientConnection.h)
-set(SOURCES ConnectionsServer.cpp ClientConnection.cpp )
+set(HEADERS ConnectionsServer.h ClientConnection.h ServerConfiguration.h)
+set(SOURCES ConnectionsServer.cpp ClientConnection.cpp ServerConfiguration.cpp)
 
 add_library(libConnections ${SOURCES} ${HEADERS})
