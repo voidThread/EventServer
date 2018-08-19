@@ -16,8 +16,6 @@ void ConnectionsServer::startAccept() {
   mAcceptor.async_accept(newConnection->getSocket(), boost::bind(
       &ConnectionsServer::handleAccept, this, newConnection,
       placeholders::error));
-
-  mServiceIO.run();
 }
 
 void ConnectionsServer::handleAccept(ClientConnection::connectionPointer connection,
@@ -35,4 +33,5 @@ ConnectionsServer::ConnectionsServer(ServerConfiguration &config)
     mServiceIO(config.getIoService()),
     mThreadPoolSize(config.getThreadPoolSize()) {
   startAccept();
+  mServiceIO.run();
 }
