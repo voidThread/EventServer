@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <sys/stat.h>
 #include <array>
+#include <google/protobuf/stubs/common.h>
 
 
 void DaemonServer::loadConfig(const std::string &path) {
@@ -71,4 +72,5 @@ void DaemonServer::run() {
   ServerConfiguration serverConfig(2, 9988);
   ConnectionsServer connectionsServer(serverConfig);
 //  sleep(30);
+//  google::protobuf::ShutdownProtobufLibrary();
 }

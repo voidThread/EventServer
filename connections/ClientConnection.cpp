@@ -7,7 +7,9 @@
 #include <vector>
 #include <boost/bind.hpp>
 #include <syslog.h>
+#include <google/protobuf/stubs/common.h>
 #include "ClientConnection.h"
+#include "../proto/messages.pb.h"
 
 using namespace boost::asio;
 
@@ -37,9 +39,19 @@ void ClientConnection::readDataFromClient() {
 }
 void ClientConnection::handleReadData(boost::system::error_code errorCode,
     std::size_t length) {
-  if (!errorCode) {
-    std::cout << std::ostream(&mBuffer).rdbuf() << std::endl;
-  } else {
+  //verify version of the library
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  events::EventMessage newEvent;
+
+  if (errorCode == boost::asio::error::eof && length > 0 || !errorCode && length > 0) {
+    std::istream dataFromClient(&mBuffer);
+    std::cout << dataFromClient.rdbuf() << std::endl;
+    if (!newEvent.ParseFromIstream(&dataFromClient)) {
+      syslog(LOG_INFO, "Can not parse input data.");
+      mSocket.close();
+    }
+  } else if (!(errorCode == boost::asio::error::eof)) {
     syslog(LOG_ERR, "Empty data send in connection.\nError Code: %s",
         errorCode.message().c_str());
   }
