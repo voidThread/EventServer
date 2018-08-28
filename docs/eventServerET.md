@@ -17,3 +17,8 @@ Setting options will be done by configuration file and loaded on application sta
 - SQLite
 
 Main platform will be GNU/Linux, but major code must be loose coupled with it.
+
+### Packet structure
+#### Header
+1. Length of protobuf message
+2. Typ of protobuf message

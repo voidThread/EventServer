@@ -18,8 +18,10 @@ class ClientConnection : public std::enable_shared_from_this<ClientConnection> {
   boost::asio::io_service &refToService;
   boost::asio::streambuf mBuffer;
 
+  void readHeaderMessage();
   void readDataFromClient();
   void handleReadData(boost::system::error_code errorCode, std::size_t length);
+  void handleReadHeaderMessage(boost::system::error_code errorCode, std::size_t length);
 
  public:
   typedef std::shared_ptr<ClientConnection> connectionPointer;
