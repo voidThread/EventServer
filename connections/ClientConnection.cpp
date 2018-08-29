@@ -39,26 +39,31 @@ void ClientConnection::readHeaderMessage() {
 void ClientConnection::handleReadHeaderMessage(boost::system::error_code errorCode,
     std::size_t length) {
   if (mBuffer.size() == length) {
-    //TODO pack to struct
-    int8_t *messageDatalength {0};
-    int8_t *messageDataType {0};
+    //TODO pack to struct and optimize
+    std::istream headerStream(&mBuffer);
+    std::stringstream ss;
+    ss << headerStream.rdbuf();
 
-    std::vector<char> len;
+    std::string temp(ss.str());
 
-    auto mutableBuffer = mBuffer.prepare(6);
-    std::copy(len.begin(), len.end(), boost::asio::buffer_cast<char*>(mutableBuffer));
-    mBuffer.commit(6);
+    std::string lengthS(temp.begin(), temp.begin()+6);
+    temp.erase(temp.begin(), temp.begin()+6);
+    std::string typeS(temp.begin(), temp.begin()+3);
+    temp.erase(temp.begin(), temp.begin()+3);
+    std::size_t messageLength =  std::stoul(lengthS);
+    uint8_t messageType = std::stoi(typeS);
 
-    mutableBuffer = mBuffer.prepare(sizeof(int8_t));
-    messageDataType = buffer_cast<int8_t*>(mutableBuffer);
-    std::cout << *messageDataType;
-    mBuffer.commit(sizeof(int8_t));
+    auto lineTerminator = temp.find("\n");
+    if (lineTerminator != std::string::npos) {
+      temp.erase(lineTerminator);
+    }
 
-    if (mBuffer.size() != 0) {
+    if (temp.empty()) {
+      readDataFromClient();
+    } else {
       syslog(LOG_INFO, "Some data stay in buffer after read header!");
     }
 
-    readDataFromClient();
   }
 }
 void ClientConnection::readDataFromClient() {
